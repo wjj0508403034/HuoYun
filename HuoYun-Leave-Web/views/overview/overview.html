@@ -1,0 +1,91 @@
+<div class="page overview">
+  <div class="user-profile" ng-controller="huoyun.controllers.UserProfileController">
+    <div class="panel">
+      <div class="panal-header">
+        <label translate>pages.overview.userprofile.title</label>
+        <div class="toolbar">
+          <div class="icon-button">
+            <i class="fa fa-pencil"></i>
+            <span class="text"><a ui-sref="profile" translate>common.buttons.edit</a> </span>
+          </div>
+        </div>
+      </div>
+      <div class="panel-content">
+        <div class="user-info-container">
+          <div class="user-image">
+
+          </div>
+          <div class="user-info clearfix">
+            <div class="input-label-group clearfix">
+              <div class="label-name" translate>pages.overview.userprofile.fields.name</div>
+              <div class="label-value">{{data.fullName}}</div>
+            </div>
+            <div class="input-label-group clearfix">
+              <div class="label-name" translate>pages.overview.userprofile.fields.birthday</div>
+              <div class="label-value">{{data.birthday | date : 'yyyy-MM-dd'}}</div>
+            </div>
+            <div class="input-label-group clearfix">
+              <div class="label-name" translate>pages.overview.userprofile.fields.sex</div>
+              <div class="label-value">{{data.sex}}</div>
+            </div>
+            <div class="input-label-group clearfix">
+              <div class="label-name" translate>pages.overview.userprofile.fields.phone</div>
+              <div class="label-value">{{data.phone}}</div>
+            </div>
+            <div class="input-label-group clearfix">
+              <div class="label-name" translate>pages.overview.userprofile.fields.email</div>
+              <div class="label-value">{{data.email}}</div>
+            </div>
+            <div class="input-label-group clearfix full-line">
+              <div class="label-name" translate>pages.overview.userprofile.fields.address</div>
+              <div class="label-value">{{data.address}}</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="leave-history" ng-controller="huoyun.controllers.LeaveHistoryController">
+    <div class="panel">
+      <div class="panal-header">
+        <label translate>pages.overview.leavehistory.title</label>
+        <div class="toolbar">
+          <div class="icon-button">
+            <i class="fa fa-plus"></i>
+            <span class="text" ng-click="create()" translate>pages.overview.leavehistory.buttons.create</span>
+          </div>
+        </div>
+      </div>
+      <div class="panel-content clearfix">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th translate>pages.overview.leavehistory.columns.type</th>
+              <th translate>pages.overview.leavehistory.columns.startDate</th>
+              <th translate>pages.overview.leavehistory.columns.endDate</th>
+              <th translate>pages.overview.leavehistory.columns.total</th>
+              <th translate>pages.overview.leavehistory.columns.status</th>
+              <th translate>pages.overview.leavehistory.columns.approver</th>
+              <th translate>pages.overview.leavehistory.columns.operator</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="leave in page.content">
+              <th scope="row">{{$index + 1}}</th>
+              <td>{{leave.type}}</td>
+              <td>{{leave.startDate | date : 'yyyy-MM-dd'}}</td>
+              <td>{{leave.endDate | date : 'yyyy-MM-dd'}}</td>
+              <td>{{leave.total}}</td>
+              <td>{{leave.status}}</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <div uib-pagination ng-hide="page.content.length === 0" total-items="page.totalPages" previous-text="{{'common.buttons.previous' | translate}}" next-text="{{'common.buttons.next' | translate}}" ng-model="page.number" items-per-page="page.size" ng-change="onPageChanged()"></div>
+      </div>
+    </div>
+  </div>
+</div>

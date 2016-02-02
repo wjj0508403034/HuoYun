@@ -1,0 +1,58 @@
+<div class="modal-header">
+  <h3 class="modal-title" translate>pages.userprofileedit.title</h3>
+</div>
+
+<div class="modal-body">
+  <label translate>pages.userprofileedit.fields.firstName</label>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-circle-o"></i></span>
+    <input type="text" class="form-control" aria-describedby="basic-addon1">
+  </div>
+  <label translate>pages.userprofileedit.fields.lastName</label>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-circle-o"></i></span>
+    <input type="text" class="form-control" aria-describedby="basic-addon1">
+  </div>
+  <label translate>pages.userprofileedit.fields.sex</label>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-mars"></i></span>
+    <select class="form-control" readonly aria-describedby="basic-addon1">
+      <option value="male" translate>common.text.male</option>
+      <option value="female" translate>common.text.female</option>
+    </select>
+  </div>
+  <label translate>pages.userprofileedit.fields.phone</label>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-phone"></i></span>
+    <input type="text" class="form-control" aria-describedby="basic-addon1">
+  </div>
+  <label translate>pages.userprofileedit.fields.email</label>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope-o"></i></span>
+    <input type="text" class="form-control" aria-describedby="basic-addon1">
+  </div>
+  <label translate>pages.userprofileedit.fields.birthday</label>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+    <input type="text" readonly class="form-control" uib-datepicker-popup ng-model="data.birthday" show-weeks="false" is-open="isBirthdayPickerOpen" clear-text="{{'common.buttons.clear' | translate}}" close-text="{{'common.buttons.close' | translate}}" current-text="{{'common.buttons.today' | translate}}">
+  </div>
+  <label translate>pages.userprofileedit.fields.department</label>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-list"></i></span>
+    <input type="text" class="form-control" aria-describedby="basic-addon1">
+  </div>
+  <label translate>pages.userprofileedit.fields.position</label>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-list"></i></span>
+    <input type="text" class="form-control" aria-describedby="basic-addon1">
+  </div>
+  <label translate>pages.userprofileedit.fields.onboradDate</label>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-list"></i></span>
+    <input type="text" class="form-control" aria-describedby="basic-addon1">
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="ok()" translate>common.buttons.save</button>
+  <button class="btn btn-warning" type="button" ng-click="cancel()" translate>common.buttons.cancel</button>
+</div>

@@ -1,0 +1,76 @@
+{
+  "app": {
+    "name": "请假系统"
+  },
+  "common": {
+    "buttons": {
+      "edit": "修改",
+      "next": "下一页",
+      "previous": "上一页",
+      "ok": "确定",
+      "cancel": "取消",
+      "close": "关闭",
+      "clear": "清除",
+      "today": "今天",
+      "save": "保存"
+    },
+    "text": {
+      "male": "男",
+      "female": "女"
+    }
+  },
+  "pages": {
+    "overview": {
+      "title": "请假管理",
+      "userprofile": {
+        "title": "员工个人信息",
+        "fields": {
+          "name": "姓名：",
+          "birthday": "出生日期：",
+          "sex": "性别：",
+          "phone": "电话：",
+          "email": "邮箱：",
+          "address": "家庭地址："
+        }
+      },
+      "leavehistory": {
+        "title": "我的请假记录",
+        "buttons": {
+          "create": "我要请假"
+        },
+        "columns": {
+          "type": "请假类型",
+          "startDate": "开始时间",
+          "endDate": "结束时间",
+          "total": "总计",
+          "status": "状态",
+          "approver": "审批人",
+          "operator": "操作"
+        }
+      }
+    },
+    "leavecreate": {
+      "title": "请假申请",
+      "fields": {
+        "type": "请假类型",
+        "approver": "审批人",
+        "startDate": "开始时间",
+        "endDate": "结束时间"
+      }
+    },
+    "userprofileedit": {
+      "title": "编辑个人信息",
+      "fields": {
+        "firstName": "姓",
+        "lastName": "名",
+        "birthday": "出生日期",
+        "phone": "电话",
+        "email": "邮箱",
+        "sex": "性别",
+        "department": "部门",
+        "position": "职位",
+        "onboradDate": "入职时间"
+      }
+    }
+  }
+}

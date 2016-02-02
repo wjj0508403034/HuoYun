@@ -1,0 +1,67 @@
+.panel {}
+
+.panel>.panal-header {
+  height: 40px;
+  line-height: 39px;
+  border-bottom: 1px solid #ddd;
+  color: #8d8d8d;
+  position: relative;
+}
+
+.panel>.panal-header>.toolbar {
+  position: absolute;
+  right: 0;
+  min-width: 50px;
+  top: 0;
+  right: 0;
+}
+
+.panel>.panal-header>label {
+  line-height: 39px;
+}
+
+.panel>.panel-content {
+  position: relative;
+}
+
+.panel-content:before,
+.panel-content:after {
+  display: table;
+  content: " ";
+}
+
+.icon-button {
+  cursor: pointer;
+  width: auto;
+}
+
+.icon-button>.fa {
+  margin-right: 5px;
+}
+
+.icon-button:hover {
+  color: #3c8dbc;
+}
+
+.input-label-group {
+  width: 300px;
+  float: left;
+  min-height: 38px;
+  line-height: 38px;
+}
+
+.input-label-group>.label-name {
+  width: 80px;
+  float: left;
+  text-align: right;
+}
+
+.input-label-group>.label-value {
+  width: 220px;
+  float: left;
+}
+
+.input-label-group.full-line {
+  clear: both;
+  width: 100%;
+}

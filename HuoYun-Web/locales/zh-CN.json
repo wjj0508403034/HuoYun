@@ -1,0 +1,25 @@
+{
+  "appname": "火云",
+  "appfullname": "火云客户管理系统",
+  "title": {
+    "customer": "客户"
+  },
+  "sidebar": {
+    "masterdata": "主数据",
+    "contact": "联系人",
+    "customer": "客户",
+    "product": "产品",
+    "presales": "市场",
+    "compaign": "推广活动",
+    "competitor": "竞争对手",
+    "sales": "销售",
+    "salesleads": "销售线索",
+    "salesopportunity": "销售机会",
+    "salesquotation": "销售报价",
+    "salesorder": "销售订单",
+    "contracttemplate": "模板模板",
+    "activitytask": "活动任务",
+    "activity": "活动",
+    "task": "任务"
+  }
+}
