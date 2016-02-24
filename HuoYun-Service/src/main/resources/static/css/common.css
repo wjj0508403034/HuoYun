@@ -1,0 +1,171 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Hiragino Sans GB", "Microsoft Yahei", SimSun, Arial,
+    "Helvetica Neue", Helvetica;
+  color: #333;
+  word-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 10px 0;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+ul, p {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a:-webkit-any-link {
+  cursor: auto;
+}
+
+a {
+  background-color: transparent;
+  outline: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input {
+  font-family: Arial, "Hiragino Sans GB", "Microsoft Yahei", SimSun;
+}
+
+img {
+  border: 0;
+  vertical-align: top;
+  display: inline-block;
+}
+
+.color-green {
+  color: #00b38a;
+}
+
+.hidden {
+  display: none;
+}
+
+.f-left {
+  float: left;
+}
+
+.f-right {
+  float: right;
+}
+
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+  height: 0;
+}
+
+.box-sizing {
+  box-sizing: border-box;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.error-message {
+  color: red;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.input-container.error input {
+  border-color: red;
+  background: #FBEAEA;
+  color: red;
+}
+
+input[type="text"], input[type="password"] {
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+  height: 44px;
+  line-height: 1;
+  vertical-align: middle;
+  color: #333;
+  border: 1px solid #f8f8f8;
+  background: #f8f8f8;
+  border-radius: 2px;
+  outline: 0;
+  width: 100%;
+  padding: 0px 13px;
+  box-sizing: border-box;
+}
+
+input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover,
+  input[type="password"]:focus {
+  background-color: rgb(250, 255, 189);
+  color: black;
+  border-color: #00b38a;
+}
+
+.btn {
+  width: 100%;
+  display: block;
+  font-size: 16px;
+  line-height: 44px;
+  display: inline-block;
+  height: 44px;
+  padding: 0 30px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid #fff;
+  outline: 0;
+  cursor: pointer;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-transition: .05s linear;
+  -o-transition: .05s linear;
+  transition: .05s linear;
+  -webkit-border-radius: 2px;
+}
+
+.btn-lg {
+  font-size: 18px;
+  line-height: 46px;
+  height: 46px;
+}
+
+.btn-green {
+  color: #fff;
+  border-color: #00b38a;
+  background-color: #00b38a;
+}
+
+.check-box-control {
+  cursor: pointer;
+}
+
+.check-box-control .fa-check-square {
+  margin-right: 5px;
+}
+
+.check-box-control.checked .fa-check-square {
+  color: #00b38a;
+}

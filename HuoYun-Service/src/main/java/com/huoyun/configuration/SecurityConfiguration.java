@@ -19,7 +19,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -28,26 +28,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		httpSecurity.csrf().disable();
 		httpSecurity.headers().frameOptions().disable();
 
-		httpSecurity.authorizeRequests().antMatchers("/**","/assets/**").permitAll();
-		httpSecurity.authorizeRequests().antMatchers("/api/user/register").permitAll();
-		httpSecurity.authorizeRequests().antMatchers("/api/user/login").permitAll();
-		httpSecurity.authorizeRequests().antMatchers("/login.html").permitAll();
+		httpSecurity.authorizeRequests()
+				.antMatchers("/css/**", "/imgs/**", "/libs/**").permitAll();
+
+		
+		httpSecurity.authorizeRequests()
+				.antMatchers("/login.html", "/register.html").permitAll();
+		httpSecurity.authorizeRequests().antMatchers("/register").permitAll();
+
+		/************************************************************
+		 * API
+		 ************************************************************/
+		httpSecurity.authorizeRequests()
+				.antMatchers("/api/user/login", "/api/user/register")
+				.permitAll();
 
 		httpSecurity.authorizeRequests().anyRequest().authenticated().and()
 				.formLogin().loginPage("/login.html")
-				.loginProcessingUrl("/login")
-				.usernameParameter("email")
-				.passwordParameter("password")
-				.failureUrl("/login.html?error")
-				.defaultSuccessUrl("/")
-				.permitAll()
-				.and()
-				.logout().permitAll();
+				.loginProcessingUrl("/login").usernameParameter("account")
+				.passwordParameter("password").failureUrl("/login.html?error")
+				.defaultSuccessUrl("/").permitAll().and().logout().permitAll();
 	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth)
 			throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+		auth.userDetailsService(userDetailsService).passwordEncoder(
+				passwordEncoder);
 	}
 }

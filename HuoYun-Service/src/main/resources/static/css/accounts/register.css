@@ -1,0 +1,205 @@
+.register header {
+  position: relative;
+  width: 100%;
+  height: 323px;
+  background-color: #00b38a;
+}
+
+.register section {
+  width: 663px;
+  height: 455px;
+  margin: -168px auto 0 auto;
+  padding: 50px 47px 60px 57px;
+  background-color: #fff;
+  display: table;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .09);
+  box-shadow: 0 0 5px rgba(0, 0, 0, .09);
+  position: relative;
+  z-index: 1;
+  margin: -168px auto 0 auto;
+}
+
+.register section:before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  bottom: -2px;
+  right: -2px;
+  display: block;
+  width: 0;
+  border-width: 8px;
+  border-style: solid;
+  border-color: #f1f1f1 #fff #fff #f1f1f1;
+  -webkit-border-radius: 3px 0 0;
+  -moz-border-radius: 3px 0 0;
+  border-radius: 3px 0 0;
+}
+
+.register .left-part {
+  width: 300px;
+  margin-right: 46px;
+}
+
+.register .right-part {
+  width: 150px;
+  margin-left: 46px;
+  color: #777;
+}
+
+.register .input-container {
+  margin-top: 20px;
+}
+
+.register .input-container:first-child {
+  margin-top: 0px;
+}
+
+.register .tab {
+  position: relative;
+  z-index: 1;
+  height: 33px;
+  margin-bottom: 29px;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.register .tab li {
+  font-size: 16px;
+  line-height: 24px;
+  position: relative;
+  float: left;
+  width: 150px;
+  height: 33px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  color: #333;
+}
+
+.register .tab li.active {
+  color: #00b38a;
+}
+
+.register .tab .tab_active {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  background-color: #00b38a;
+  width: 150px;
+  height: 1px;
+}
+
+.register .tab .tab_active:before, .register .tab .tab_active:after {
+  position: absolute;
+  z-index: 2;
+  top: -12px;
+  left: 50%;
+  margin-left: -3px;
+  content: '';
+  width: 0;
+  height: 0;
+  line-height: 0;
+  border: 6px solid transparent;
+  border-bottom-color: #00b38a;
+}
+
+.register .tab .tab_active:after {
+  z-index: 3;
+  top: -10px;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  border: 6px solid transparent;
+  border-bottom-color: #fff;
+}
+
+.register .tab[index="1"] .tab_active {
+  left: 150px;
+}
+
+.register .tab-animation {
+  transition: left 0.3s cubic-bezier(0.8, 0, 0.2, 1) 0s;
+  -webkit-transition: left 0.3s cubic-bezier(0.8, 0, 0.2, 1) 0s;
+  -moz-transition: left 0.3s cubic-bezier(0.8, 0, 0.2, 1) 0s;
+  -o-transition: left 0.3s cubic-bezier(0.8, 0, 0.2, 1) 0s;
+  -ms-transition: left 0.3s cubic-bezier(0.8, 0, 0.2, 1) 0s;
+}
+
+.register .register-btn {
+  margin-top: 20px;
+}
+
+.register .smscode {
+  width: 60%;
+}
+
+.register .send-sms-btn {
+  width: 40%;
+}
+
+.register h5 {
+  color: #777;
+}
+
+.login-now {
+  display: inline-block;
+  height: 22px;
+  font-size: 16px;
+  padding-right: 23px;
+}
+
+.register .vender-login {
+  margin-top: 10px;
+}
+
+.register .vender-login li {
+  float: left;
+  width: 44px;
+  height: 43px;
+  margin-right: 9px;
+}
+
+.register .vender-login li a {
+  display: inline-block;
+  width: 44px;
+  height: 43px;
+  background-position: left top;
+  background-repeat: no-repeat;
+}
+
+.register .vender-login li:last-child {
+  margin-right: 0px;
+}
+
+.register .icon-sina {
+  background-image: url(/imgs/icon-sina.png);
+}
+
+.register .icon-qq {
+  background-image: url(/imgs/icon-qq.png);
+}
+
+.register .icon-wechat {
+  background-image: url(/imgs/icon-wechat.png);
+}
+
+.register .qrcode {
+  margin-top: 45px;
+}
+
+.register .qrcode img {
+  width: 124px;
+  height: 124px;
+}
+
+.register .qrcode p {
+  font-size: 12px;
+  display: inline-block;
+  padding-left: 6px;
+}
+
+.register .vender-login-text {
+  margin-top: 30px;
+}

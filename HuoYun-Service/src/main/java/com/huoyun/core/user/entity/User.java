@@ -17,11 +17,14 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@Column(unique = true, nullable = false, updatable = false)
+	@Column(unique = true, updatable = false)
 	private String email;
 
 	@Column(nullable = false)
 	private String password;
+
+	@Column(unique = true, updatable = false)
+	private String phone;
 
 	@OneToOne
 	@JoinColumn(nullable = false)

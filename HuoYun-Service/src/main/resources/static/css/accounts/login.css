@@ -1,0 +1,141 @@
+.login header {
+  position: relative;
+  width: 100%;
+  height: 323px;
+  background-color: #00b38a;
+}
+
+.login section {
+  width: 663px;
+  margin: -168px auto 0 auto;
+  padding: 50px 47px 60px 57px;
+  background-color: #fff;
+  display: table;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .09);
+  box-shadow: 0 0 5px rgba(0, 0, 0, .09);
+  position: relative;
+  z-index: 1;
+}
+
+.login section:before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  bottom: -2px;
+  right: -2px;
+  display: block;
+  width: 0;
+  border-width: 8px;
+  border-style: solid;
+  border-color: #f1f1f1 #fff #fff #f1f1f1;
+  -webkit-border-radius: 3px 0 0;
+  -moz-border-radius: 3px 0 0;
+  border-radius: 3px 0 0;
+}
+
+.login .left-part {
+  width: 300px;
+  margin-right: 46px;
+}
+
+.login .right-part {
+  width: 150px;
+  margin-left: 46px;
+  color: #777;
+}
+
+.login .input-container {
+  margin-top: 20px;
+}
+
+.login .input-container:first-child {
+  margin-top: 0px;
+}
+
+.login .forget-pwd {
+  position: relative;
+  float: right;
+  font-size: 14px;
+  display: block;
+  text-align: right;
+  text-decoration: none;
+  color: #00b38a;
+  margin-top: -5px;
+  z-index: 3;
+}
+
+.login .login-btn {
+  margin-top: 20px;
+}
+
+.login .reg-now {
+  text-align: center;
+  margin-top: 0;
+  color: #777;
+}
+
+.login .reg-now a {
+  font-size: 16px;
+  display: inline-block;
+  text-decoration: underline;
+  color: #00b38a;
+  padding-right: 23px;
+}
+
+.login .right-part h5 {
+  margin-top: 0;
+  color: #777;
+}
+
+.login .vender-login {
+  margin-top: 10px;
+}
+
+.login .vender-login li {
+  float: left;
+  width: 44px;
+  height: 43px;
+  margin-right: 9px;
+}
+
+.login .vender-login li a {
+  display: inline-block;
+  width: 44px;
+  height: 43px;
+  background-position: left top;
+  background-repeat: no-repeat;
+}
+
+.login .vender-login li:last-child {
+  margin-right: 0px;
+}
+
+.login .icon-sina {
+  background-image: url(/imgs/icon-sina.png);
+}
+
+.login .icon-qq {
+  background-image: url(/imgs/icon-qq.png);
+}
+
+.login .icon-wechat {
+  background-image: url(/imgs/icon-wechat.png);
+}
+
+.login .qrcode {
+  margin-top: 45px;
+}
+
+.login .qrcode img {
+  width: 124px;
+  height: 124px;
+}
+
+.login .qrcode p {
+  font-size: 12px;
+  display: inline-block;
+  padding-left: 6px;
+}

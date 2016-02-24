@@ -1,19 +1,56 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="renderer" content="webkit" />
+<meta charset="UTF-8" />
 <title>登录</title>
+<link rel="stylesheet" th:href="@{/css/common.css}"></link>
+<link rel="stylesheet" th:href="@{/css/accounts/login.css}"></link>
 </head>
-<body>
-	<form class="login-form" action="#" th:action="@{/login}" method="POST">
-		<div>
-			<div>Email</div>
-			<input name="email" type="text" />
-		</div>
-		<div>
-			<div>Password:</div>
-			<input name="password"  type="password" />
-		</div>
-		<input type="submit" value="login" />
-	</form>
+<body class="login">
+  <header></header>
+  <section>
+    <div class="left-part f-left">
+      <form class="login-form" action="#" th:action="@{/login}" th:object="${loginForm}" method="POST">
+        <div th:if="${param.error}">登录失败，用户名或密码不正确。</div>
+        <div class="input-container">
+          <input name="account" th:field="*{account}" type="text" placeholder="请输入已验证手机/邮箱" />
+          <div class="error-message" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></div>
+        </div>
+        <div class="input-container">
+          <input name="password" th:field="*{password}" type="password" placeholder="请输入密码" />
+          <div class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+        <div class="input-container clearfix">
+          <a class="forget-pwd" th:href="@{/forgetpassword.html}">忘记密码？</a>
+        </div>
+        <input class="login-btn btn btn-green btn-lg" type="submit" value="登 录" />
+        <div class="input-container clearfix">
+          <h5 class="reg-now">
+            还没有帐号？
+            <a th:href="@{/register.html}"> 立即注册 </a>
+          </h5>
+
+        </div>
+      </form>
+    </div>
+    <div class="middle-part f-left">
+      <img th:src="@{/imgs/divider-login.jpg}" />
+    </div>
+    <div class="right-part f-left">
+      <h5>使用以下帐号直接登录:</h5>
+      <ul class="vender-login clearfix">
+        <li><a href="#" title="使用新浪微博帐号登录" class="icon-sina" target="_blank"></a></li>
+        <li><a href="#" title="使用腾讯QQ帐号登录" class="icon-qq" target="_blank"></a></li>
+        <li><a href="#" class="icon-wechat" title="使用微信帐号登录" target="_blank"></a></li>
+      </ul>
+      <div class="qrcode">
+        <img th:src="@{/imgs/qrcode.jpg}" alt="二维码" />
+        <p>[ 扫码下载APP ]</p>
+      </div>
+    </div>
+
+  </section>
 </body>
 </html>

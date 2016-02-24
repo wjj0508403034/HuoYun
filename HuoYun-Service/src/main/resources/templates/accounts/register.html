@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="renderer" content="webkit" />
+<meta charset="UTF-8" />
+<title>注册</title>
+<link rel="stylesheet" th:href="@{/css/common.css}"></link>
+<link rel="stylesheet" th:href="@{/css/accounts/register.css}"></link>
+<link rel="stylesheet" th:href="@{/libs/font-awesome-4.5.0/css/font-awesome.min.css}"></link>
+<script type="text/javascript" th:src="@{/libs/jquery-2.2.0/jquery-2.2.0.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/accounts/register.js}"></script>
+</head>
+<body class="register">
+  <header></header>
+  <section>
+    <div class="left-part f-left">
+      <form class="register-form" action="#" th:action="@{/register}" th:object="${registerForm}" method="POST">
+        <ul class="tab clearfix" index="1">
+          <li><i class="fa fa-mobile"></i> 手机号码注册</li>
+          <li class="active"><i class="fa fa-envelope-o"></i> 邮箱注册</li>
+          <span class="tab-animation tab_active"></span>
+        </ul>
+        <div class="tab-0 hidden">
+          <div class="input-container">
+            <input name="phone" type="text" placeholder="请输入常用手机号码" />
+          </div>
+          <div class="input-container clearfix">
+            <input class="f-left smscode" name="smscode" type="text" placeholder="请输入短信验证码" />
+            <div class="send-sms-btn btn btn-green f-left">获取验证码</div>
+          </div>
+        </div>
+        <div class="tab-1">
+          <ul class="form-error-message" th:if="${#fields.hasGlobalErrors()}">
+            <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
+          </ul>
+          <div class="input-container" th:classappend="${#fields.hasErrors('email')}? 'error' : ''">
+            <input name="email" th:field="*{email}" type="text" placeholder="请输入常用邮箱地址" />
+            <div class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+          </div>
+        </div>
+        <div class="input-container" th:classappend="${#fields.hasErrors('password')}? 'error' : ''">
+          <input name="password" th:field="*{password}" type="password" placeholder="请输入密码" />
+          <div class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+        <div class="input-container" th:classappend="${#fields.hasErrors('repeatPassword')}? 'error' : ''">
+          <input name="repeatPassword" th:field="*{repeatPassword}" type="password" placeholder="请再次输入密码" />
+          <div class="error-message" th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}"></div>
+        </div>
+        <div class="input-container clearfix">
+          <div class="check-box-control checked">
+            <i class="fa fa-check-square"></i>我已阅读并同意
+            <a class="color-green" href="http://www.lagou.com/privacy.html" target="_blank">《用户协议》</a>
+          </div>
+        </div>
+        <input class="register-btn btn btn-green btn-lg" type="submit" value="注 册" />
+      </form>
+    </div>
+    <div class="middle-part f-left">
+      <img th:src="@{/imgs/divider-login.jpg}" />
+    </div>
+    <div class="right-part f-left">
+      <h5>已有拉勾帐号:</h5>
+      <a th:href="@{/login.html}" class="login-now color-green">
+        <span>直接登录</span> <i class="fa fa-arrow-right"></i>
+      </a>
+      <h5 class="vender-login-text">使用以下帐号直接登录:</h5>
+      <ul class="vender-login clearfix">
+        <li><a href="#" title="使用新浪微博帐号登录" class="icon-sina" target="_blank"></a></li>
+        <li><a href="#" title="使用腾讯QQ帐号登录" class="icon-qq" target="_blank"></a></li>
+        <li><a href="#" class="icon-wechat" title="使用微信帐号登录" target="_blank"></a></li>
+      </ul>
+      <div class="qrcode">
+        <img th:src="@{/imgs/qrcode.jpg}" alt="二维码" />
+        <p>[ 扫码下载APP ]</p>
+      </div>
+    </div>
+
+  </section>
+</body>
+</html>

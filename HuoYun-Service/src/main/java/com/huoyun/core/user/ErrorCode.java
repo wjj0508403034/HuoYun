@@ -10,6 +10,11 @@ public class ErrorCode {
 	public final static int Register_Failed_Invite_Code_Error = 10007;
 	public final static int Register_Failed_Invite_Code_Expired = 10008;
 	public final static int Register_Reinvite_Failed_Due_To_User_Finished_Register = 10009;
+	public final static int Register_Failed_Password_Not_Match = 10010;
+	public final static int Register_Failed = 10011;
+	public final static int Register_Failed_Password_Strategy_Not_Match = 10012;
+	
+	
 	public final static int Login_Failed = 10100;
 	public final static int User_Not_Exist = 10101;
 	public final static int Logout_Failed_With_No_User = 10200;

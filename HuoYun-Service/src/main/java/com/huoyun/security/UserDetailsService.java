@@ -19,7 +19,7 @@ public class UserDetailsService implements
 	@Override
 	public UserDetails loadUserByUsername(String email)
 			throws UsernameNotFoundException {
-		User user = this.userService.findByEmail(email);
+		User user = this.userService.findByEmailOrPhone(email);
 		if (user == null) {
 			throw new UsernameNotFoundException(String.format(
 					"User with email=%s was not found", email));

@@ -77,19 +77,14 @@ public class UserServiceImpl extends BoService implements UserService {
 	@Override
 	public void login(String email, String password) throws BusinessException {
 		User user = this.userRepository.findByEmail(email);
-		if (user != null) {
-			if (passwordEncoder.matches(password, user.getPassword())) {
-				UserInfo userInfo = new UserInfo(user);
-				UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-						userInfo, null, userInfo.getAuthorities());
-				SecurityContextHolder.getContext().setAuthentication(token);
-				logger.info("login success.");
-				return;
-			}
-		}
+		this.login(user, password);
+	}
 
-		SecurityContextHolder.getContext().setAuthentication(null);
-		throw new BusinessException(ErrorCode.Login_Failed, localeService);
+	@Override
+	public void loginByEmailOrPhone(String account, String password)
+			throws BusinessException {
+		User user = this.userRepository.findByEmailOrPhone(account, account);
+		this.login(user, password);
 	}
 
 	@Override
@@ -389,5 +384,35 @@ public class UserServiceImpl extends BoService implements UserService {
 
 		user.setPassword(passwordEncoder.encode(newPassword));
 		this.userRepository.save(user);
+	}
+
+	@Override
+	public void registerByEmail(String email, String password) {
+		User user = new User();
+		user.setEmail(email);
+		user.setPassword(passwordEncoder.encode(password));
+		user.setFirstLogin(true);
+		this.create(user);
+	}
+
+	private void login(User user, String password) throws BusinessException {
+		if (user != null) {
+			if (passwordEncoder.matches(password, user.getPassword())) {
+				UserInfo userInfo = new UserInfo(user);
+				UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+						userInfo, null, userInfo.getAuthorities());
+				SecurityContextHolder.getContext().setAuthentication(token);
+				logger.info("login success.");
+				return;
+			}
+		}
+
+		SecurityContextHolder.getContext().setAuthentication(null);
+		throw new BusinessException(ErrorCode.Login_Failed, localeService);
+	}
+
+	@Override
+	public User findByEmailOrPhone(String account) {
+		return this.userRepository.findByEmailOrPhone(account, account);
 	}
 }
