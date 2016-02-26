@@ -40,4 +40,6 @@ public interface UserService {
 	void reinviteRegister(Long id) throws BusinessException;
 
 	void registerByEmail(String email, String password) throws BusinessException;
+	
+	void registerByPhone(String phone,String password,String code) throws BusinessException;
 }

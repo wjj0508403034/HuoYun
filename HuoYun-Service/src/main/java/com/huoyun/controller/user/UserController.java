@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.huoyun.controller.user.model.LoginForm;
+import com.huoyun.controller.user.model.RegisterByPhoneForm;
 import com.huoyun.controller.user.model.RegisterForm;
 import com.huoyun.core.user.ErrorCode;
 import com.huoyun.core.user.UserService;
@@ -66,24 +67,16 @@ public class UserController {
 		return "redirect:/login.html";
 	}
 
-	/*@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@Valid LoginForm loginForm, BindingResult result) {
-		loginForm.onValid(result);
+	@RequestMapping(value = "/registerByPhone", method = RequestMethod.POST)
+	public String registerByPhone(
+			@Valid RegisterByPhoneForm registerByPhoneForm, BindingResult result) {
+
+		registerByPhoneForm.onValid(result);
+		
 		if (result.hasErrors()) {
-			return VIEW_NAME_LOGIN;
+			return VIEW_NAME_REGISTER;
 		}
-
-		try {
-			this.userService.loginByEmailOrPhone(loginForm.getAccount(),
-					loginForm.getPassword());
-		} catch (BusinessException ex) {
-			loginForm.addError(result, ex.getCode());
-			return VIEW_NAME_LOGIN;
-		} catch (Exception ex) {
-			loginForm.addError(result, ErrorCode.Login_Failed);
-			return VIEW_NAME_LOGIN;
-		}
-
-		return "redirect:/";
-	}*/
+		
+		return "redirect:/login.html";
+	}
 }

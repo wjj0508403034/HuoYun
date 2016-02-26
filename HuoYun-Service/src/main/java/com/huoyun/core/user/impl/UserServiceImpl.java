@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -14,7 +15,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.huoyun.api.user.model.SmsValidateCode;
 import com.huoyun.core.common.BoService;
+import com.huoyun.core.common.session.SessionUtils;
 import com.huoyun.core.employee.EmployeeService;
 import com.huoyun.core.extension.endpoint.UserEventListenerForEmployee;
 import com.huoyun.core.locale.LocaleService;
@@ -68,6 +71,9 @@ public class UserServiceImpl extends BoService implements UserService {
 
 	@Autowired
 	private MailService mailService;
+
+	@Autowired
+	private HttpSession httpSession;
 
 	@PostConstruct
 	public void init() {
@@ -414,5 +420,24 @@ public class UserServiceImpl extends BoService implements UserService {
 	@Override
 	public User findByEmailOrPhone(String account) {
 		return this.userRepository.findByEmailOrPhone(account, account);
+	}
+
+	@Override
+	public void registerByPhone(String phone, String password, String code)
+			throws BusinessException {
+		// 手机格式检查
+
+		// 手机是否被注册检查
+
+		// 注册验证码检查是否有效
+		SmsValidateCode smsValidateCode = (SmsValidateCode) httpSession
+				.getAttribute(SessionUtils.Names_Register_SMS_Validator_Code);
+		if (smsValidateCode == null
+				|| smsValidateCode.getExpireDate().isBefore(LocalDate.now())) {
+			throw new BusinessException(ErrorCode.Login_Failed, localeService);
+		}
+		
+		// 创建用户
+
 	}
 }

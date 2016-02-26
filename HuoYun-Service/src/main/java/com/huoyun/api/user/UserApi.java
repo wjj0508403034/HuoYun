@@ -1,4 +1,8 @@
-package com.huoyun.api;
+package com.huoyun.api.user;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -6,9 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.huoyun.api.user.model.SmsValidateCode;
+import com.huoyun.core.common.session.SessionUtils;
 import com.huoyun.core.locale.LocaleService;
 import com.huoyun.core.user.UserService;
 import com.huoyun.core.user.dto.InviteRegisterForm;
@@ -17,6 +24,7 @@ import com.huoyun.core.user.dto.RegisterUser;
 import com.huoyun.core.user.dto.ResetPassword;
 import com.huoyun.core.user.dto.ResetPasswordFormByEmail;
 import com.huoyun.exception.BusinessException;
+import com.huoyun.thirdparty.alibaba.dayu.AlidayuService;
 
 @RestController
 @RequestMapping("/api/user")
@@ -30,6 +38,12 @@ public class UserApi {
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+
+	@Autowired
+	private AlidayuService alidayuService;
+
+	@Autowired
+	private HttpSession httpSession;
 
 	/*
 	 * 用户注册
@@ -114,5 +128,22 @@ public class UserApi {
 	public @ResponseBody void reinviteRegister(@PathVariable Long id)
 			throws BusinessException {
 		this.userService.reinviteRegister(id);
+	}
+
+	/*
+	 * 发送手机验证码
+	 */
+	@RequestMapping(value = "sendSmsCode", method = RequestMethod.POST)
+	public @ResponseBody void getSMSCode(
+			@RequestParam(name = "phone") String phone)
+			throws BusinessException {
+		String code = this.alidayuService.sendRegisterSms(phone);
+
+		// 设置验证码1分钟之后过期
+		SmsValidateCode smsValidateCode = new SmsValidateCode(code, LocalDate
+				.now().plus(1, ChronoUnit.MINUTES));
+		httpSession
+				.setAttribute(SessionUtils.Names_Register_SMS_Validator_Code,
+						smsValidateCode);
 	}
 }
