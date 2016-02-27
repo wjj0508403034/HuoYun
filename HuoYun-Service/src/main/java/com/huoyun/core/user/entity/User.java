@@ -83,4 +83,12 @@ public class User {
 	public void setLock(boolean lock) {
 		this.lock = lock;
 	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }

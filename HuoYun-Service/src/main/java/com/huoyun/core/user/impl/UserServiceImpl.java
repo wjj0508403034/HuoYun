@@ -1,6 +1,7 @@
 package com.huoyun.core.user.impl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.huoyun.api.user.model.SmsValidateCode;
 import com.huoyun.core.common.BoService;
 import com.huoyun.core.common.session.SessionUtils;
+import com.huoyun.core.common.validator.PhoneValidator;
 import com.huoyun.core.employee.EmployeeService;
 import com.huoyun.core.extension.endpoint.UserEventListenerForEmployee;
 import com.huoyun.core.locale.LocaleService;
@@ -105,6 +107,11 @@ public class UserServiceImpl extends BoService implements UserService {
 	@Override
 	public User findByEmail(String email) {
 		return this.userRepository.findByEmail(email);
+	}
+
+	@Override
+	public User findByPhone(String phone) {
+		return this.userRepository.findByPhone(phone);
 	}
 
 	@Override
@@ -392,15 +399,6 @@ public class UserServiceImpl extends BoService implements UserService {
 		this.userRepository.save(user);
 	}
 
-	@Override
-	public void registerByEmail(String email, String password) {
-		User user = new User();
-		user.setEmail(email);
-		user.setPassword(passwordEncoder.encode(password));
-		user.setFirstLogin(true);
-		this.create(user);
-	}
-
 	private void login(User user, String password) throws BusinessException {
 		if (user != null) {
 			if (passwordEncoder.matches(password, user.getPassword())) {
@@ -423,21 +421,45 @@ public class UserServiceImpl extends BoService implements UserService {
 	}
 
 	@Override
+	public void registerByEmail(String email, String password) {
+		User user = new User();
+		user.setEmail(email);
+		user.setPassword(passwordEncoder.encode(password));
+		user.setFirstLogin(true);
+		this.create(user);
+	}
+
+	@Override
 	public void registerByPhone(String phone, String password, String code)
 			throws BusinessException {
 		// 手机格式检查
+		PhoneValidator validator = new PhoneValidator();
+		if (!validator.validator(phone)) {
+			throw new BusinessException(ErrorCode.Invalid_Phone_Format,
+					localeService);
+		}
 
 		// 手机是否被注册检查
+		if (this.findByPhone(phone) != null) {
+			throw new BusinessException(ErrorCode.Register_Phone_Exist,
+					localeService);
+		}
 
 		// 注册验证码检查是否有效
 		SmsValidateCode smsValidateCode = (SmsValidateCode) httpSession
 				.getAttribute(SessionUtils.Names_Register_SMS_Validator_Code);
 		if (smsValidateCode == null
-				|| smsValidateCode.getExpireDate().isBefore(LocalDate.now())) {
-			throw new BusinessException(ErrorCode.Login_Failed, localeService);
+				|| smsValidateCode.getExpireDate()
+						.isBefore(LocalDateTime.now())) {
+			throw new BusinessException(ErrorCode.Validator_Code_Expired,
+					localeService);
 		}
-		
-		// 创建用户
 
+		// 创建用户
+		User user = new User();
+		user.setPhone(phone);
+		user.setPassword(passwordEncoder.encode(password));
+		user.setFirstLogin(true);
+		this.create(user);
 	}
 }

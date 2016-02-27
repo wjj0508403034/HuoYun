@@ -11,7 +11,7 @@ import com.huoyun.core.user.ErrorCode;
 public class RegisterForm extends BaseForm {
 	public static final String FORM_NAME = "registerForm";
 	private static final String Email_Format_Invalid = "{" + Error_Code_Prefix
-			+ ErrorCode.Register_Invalid_Email_Format + "}";
+			+ ErrorCode.Invalid_Email_Format + "}";
 	private static final String Password_Strategy = "{" + Error_Code_Prefix
 			+ ErrorCode.Register_Failed_Password_Strategy_Not_Match + "}";
 

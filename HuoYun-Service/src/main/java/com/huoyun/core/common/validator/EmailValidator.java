@@ -5,9 +5,9 @@ import javax.mail.internet.InternetAddress;
 
 import org.apache.log4j.Logger;
 
-public class EmailValidtor implements Validator {
+public class EmailValidator implements Validator {
 	
-	private static Logger logger = Logger.getLogger(EmailValidtor.class);
+	private static Logger logger = Logger.getLogger(EmailValidator.class);
 
 	@Override
 	public boolean validator(Object obj) {
@@ -18,7 +18,5 @@ public class EmailValidtor implements Validator {
 			logger.error(ex);
 			return false;
 		}
-
 	}
-
 }

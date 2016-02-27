@@ -24,11 +24,11 @@
         </ul>
         <div class="tab-0 hidden">
           <div class="input-container">
-            <input name="phone" type="text" placeholder="请输入常用手机号码" />
+            <input id="phone-input" name="phone" type="text" placeholder="请输入常用手机号码"  onblur="register.checkPhone($(this).val())"/>
           </div>
           <div class="input-container clearfix">
             <input class="f-left smscode" name="smscode" type="text" placeholder="请输入短信验证码" />
-            <div class="send-sms-btn btn btn-green f-left">获取验证码</div>
+            <div class="send-sms-btn btn btn-green f-left disabled" onclick="register.sendRegisterSmsCode($('#phone-input').val())">获取验证码</div>
           </div>
         </div>
         <div class="tab-1">
@@ -36,7 +36,7 @@
             <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
           </ul>
           <div class="input-container" th:classappend="${#fields.hasErrors('email')}? 'error' : ''">
-            <input name="email" th:field="*{email}" type="text" placeholder="请输入常用邮箱地址" />
+            <input name="email" th:field="*{email}" type="text" placeholder="请输入常用邮箱地址" onblur="register.checkEmail($(this).val())"/>
             <div class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
           </div>
         </div>

@@ -5,9 +5,11 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.huoyun.core.common.web.ProxyProperties;
 import com.huoyun.core.locale.LocaleService;
 import com.huoyun.exception.BusinessException;
 import com.taobao.api.ApiException;
@@ -30,6 +32,9 @@ public class AlidayuServiceImpl implements AlidayuService {
 
 	@Autowired
 	private LocaleService localeService;
+	
+	@Autowired
+	private ProxyProperties proxyProperties;
 
 	/*
 	 * 阿里大鱼开发文档
@@ -81,8 +86,6 @@ public class AlidayuServiceImpl implements AlidayuService {
 
 	private void send(String template, String signName, Object params,
 			String phones) throws BusinessException {
-		System.setProperty("http.proxyHost", "proxy.pal.sap.corp");
-		System.setProperty("http.proxyPort", "8080");
 		TaobaoClient client = new DefaultTaobaoClient(
 				this.smsProperties.getUrl(), this.smsProperties.getAppKey(),
 				this.smsProperties.getAppSecret());
@@ -113,7 +116,7 @@ public class AlidayuServiceImpl implements AlidayuService {
 
 	private String generatorCode() {
 		Random random = new Random();
-		random.setSeed(10);
+		random.setSeed(LocalDateTime.now().getMillisOfSecond());
 		int num = random.nextInt(1000000);
 		return String.format("%06d", num);
 	}

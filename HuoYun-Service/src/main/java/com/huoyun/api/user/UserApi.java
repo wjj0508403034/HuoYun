@@ -1,7 +1,7 @@
 package com.huoyun.api.user;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDateTime;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.huoyun.api.user.model.SmsValidateCode;
 import com.huoyun.core.common.session.SessionUtils;
+import com.huoyun.core.common.validator.EmailValidator;
+import com.huoyun.core.common.validator.PhoneValidator;
 import com.huoyun.core.locale.LocaleService;
+import com.huoyun.core.user.ErrorCode;
 import com.huoyun.core.user.UserService;
 import com.huoyun.core.user.dto.InviteRegisterForm;
 import com.huoyun.core.user.dto.Login;
@@ -133,17 +136,47 @@ public class UserApi {
 	/*
 	 * 发送手机验证码
 	 */
-	@RequestMapping(value = "sendSmsCode", method = RequestMethod.POST)
+	@RequestMapping(value = "sendRegisterSmsCode", method = RequestMethod.POST)
 	public @ResponseBody void getSMSCode(
 			@RequestParam(name = "phone") String phone)
 			throws BusinessException {
 		String code = this.alidayuService.sendRegisterSms(phone);
 
 		// 设置验证码1分钟之后过期
-		SmsValidateCode smsValidateCode = new SmsValidateCode(code, LocalDate
-				.now().plus(1, ChronoUnit.MINUTES));
+		SmsValidateCode smsValidateCode = new SmsValidateCode(code,
+				LocalDateTime.now().plusMinutes(1));
 		httpSession
 				.setAttribute(SessionUtils.Names_Register_SMS_Validator_Code,
 						smsValidateCode);
+	}
+
+	/*
+	 * 检查邮箱是否已经被注册
+	 */
+	@RequestMapping(value = "checkEmailExist", method = RequestMethod.POST)
+	public @ResponseBody boolean checkEmailExist(
+			@RequestParam(name = "email") String email)
+			throws BusinessException {
+		EmailValidator validator = new EmailValidator();
+		if (!validator.validator(email)) {
+			throw new BusinessException(
+					ErrorCode.Invalid_Email_Format, localeService);
+		}
+		return this.userService.findByEmail(email) != null;
+	}
+
+	/*
+	 * 检查手机号码是否已经被注册
+	 */
+	@RequestMapping(value = "checkPhoneExist", method = RequestMethod.POST)
+	public @ResponseBody boolean checkPhoneExist(
+			@RequestParam(name = "phone") String phone)
+			throws BusinessException {
+		PhoneValidator validator = new PhoneValidator();
+		if (!validator.validator(phone)) {
+			throw new BusinessException(ErrorCode.Invalid_Phone_Format,
+					localeService);
+		}
+		return this.userService.findByPhone(phone) != null;
 	}
 }

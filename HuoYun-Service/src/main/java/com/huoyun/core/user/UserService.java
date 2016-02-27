@@ -23,6 +23,8 @@ public interface UserService {
 
 	User findByEmail(String email);
 	
+	User findByPhone(String phone);
+	
 	User findByEmailOrPhone(String account);
 
 	User create(User user);

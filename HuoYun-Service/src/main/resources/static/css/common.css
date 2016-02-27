@@ -169,3 +169,8 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="password"]:hover
 .check-box-control.checked .fa-check-square {
   color: #00b38a;
 }
+
+.disabled {
+  border-color: #ccc;
+  background: #ccc;
+}

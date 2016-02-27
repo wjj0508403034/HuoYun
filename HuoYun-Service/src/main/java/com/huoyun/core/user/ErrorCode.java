@@ -2,7 +2,7 @@ package com.huoyun.core.user;
 
 public class ErrorCode {
 	public final static int Register_Field_Empty = 10001;
-	public final static int Register_Invalid_Email_Format = 10002;
+	public final static int Invalid_Email_Format = 10002;
 	public final static int Register_Password_NotMatch = 10003;
 	public final static int Register_Email_Exist = 10004;
 	public final static int Register_Email_Already_Invited = 10005;
@@ -13,8 +13,10 @@ public class ErrorCode {
 	public final static int Register_Failed_Password_Not_Match = 10010;
 	public final static int Register_Failed = 10011;
 	public final static int Register_Failed_Password_Strategy_Not_Match = 10012;
-	
-	
+	public final static int Invalid_Phone_Format = 10013;
+	public final static int Register_Phone_Exist = 10014;
+	public final static int Validator_Code_Expired = 10015;
+
 	public final static int Login_Failed = 10100;
 	public final static int User_Not_Exist = 10101;
 	public final static int Logout_Failed_With_No_User = 10200;

@@ -3,7 +3,7 @@ package com.huoyun.core.user.dto;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.thymeleaf.util.StringUtils;
 
-import com.huoyun.core.common.validator.EmailValidtor;
+import com.huoyun.core.common.validator.EmailValidator;
 import com.huoyun.core.locale.LocaleService;
 import com.huoyun.core.user.ErrorCode;
 import com.huoyun.core.user.entity.User;
@@ -51,10 +51,10 @@ public class RegisterUser {
 					ErrorCode.Register_Field_Empty, localeService, "password");
 		}
 
-		EmailValidtor emailValidtor = new EmailValidtor();
+		EmailValidator emailValidtor = new EmailValidator();
 		if (!emailValidtor.validator(this.email)) {
 			throw new LocalableBusinessException(
-					ErrorCode.Register_Invalid_Email_Format, localeService,
+					ErrorCode.Invalid_Email_Format, localeService,
 					"email");
 		}
 
