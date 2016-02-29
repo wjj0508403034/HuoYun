@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.huoyun.controller.user.model.LoginForm;
-import com.huoyun.controller.user.model.RegisterByPhoneForm;
 import com.huoyun.controller.user.model.RegisterForm;
 import com.huoyun.core.user.ErrorCode;
 import com.huoyun.core.user.UserService;
@@ -64,19 +63,6 @@ public class UserController {
 			return VIEW_NAME_REGISTER;
 		}
 
-		return "redirect:/login.html";
-	}
-
-	@RequestMapping(value = "/registerByPhone", method = RequestMethod.POST)
-	public String registerByPhone(
-			@Valid RegisterByPhoneForm registerByPhoneForm, BindingResult result) {
-
-		registerByPhoneForm.onValid(result);
-		
-		if (result.hasErrors()) {
-			return VIEW_NAME_REGISTER;
-		}
-		
 		return "redirect:/login.html";
 	}
 }

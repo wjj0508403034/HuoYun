@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.huoyun.api.user.model.PhoneRegisterModel;
 import com.huoyun.api.user.model.SmsValidateCode;
 import com.huoyun.core.common.session.SessionUtils;
 import com.huoyun.core.common.validator.EmailValidator;
@@ -56,6 +57,16 @@ public class UserApi {
 			throws BusinessException {
 		registerUser.onValid(localeService);
 		this.userService.create(registerUser.parse(passwordEncoder));
+	}
+
+	/*
+	 * 用户通过手机注册
+	 */
+	@RequestMapping(path = "registerByPhone", method = RequestMethod.POST)
+	public @ResponseBody void registerByPhone(
+			@RequestBody PhoneRegisterModel model) throws BusinessException {
+		this.userService.registerByPhone(model.getPhone(), model.getPassword(),
+				model.getCode());
 	}
 
 	/*
@@ -159,8 +170,8 @@ public class UserApi {
 			throws BusinessException {
 		EmailValidator validator = new EmailValidator();
 		if (!validator.validator(email)) {
-			throw new BusinessException(
-					ErrorCode.Invalid_Email_Format, localeService);
+			throw new BusinessException(ErrorCode.Invalid_Email_Format,
+					localeService);
 		}
 		return this.userService.findByEmail(email) != null;
 	}

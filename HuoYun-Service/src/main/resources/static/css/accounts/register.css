@@ -132,11 +132,13 @@
 }
 
 .register .smscode {
-  width: 60%;
+  width: 50%;
 }
 
 .register .send-sms-btn {
-  width: 40%;
+  width: 50%;
+  font-size: 14px;
+  padding: 0;
 }
 
 .register h5 {

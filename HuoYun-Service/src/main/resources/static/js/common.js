@@ -1,6 +1,6 @@
-$(document).on("click", ".check-box-control", function() {
+/*$(document).on("click", ".check-box-control", function() {
   $(this).toggleClass("checked");
-});
+});*/
 
 var huoyun = {};
 
@@ -31,6 +31,29 @@ huoyun.services.userService = {
     $.post(url, function(result) {
       dtd.resolve(result);
     });
+    return dtd.promise();
+  },
+
+  registerByPhone : function(phone, code, password) {
+    var url = "/api/user/registerByPhone";
+    var dtd = $.Deferred();
+
+    $.ajax({
+      type : "POST",
+      url : url,
+      data : JSON.stringify({
+        phone : phone,
+        code : code,
+        password : password
+      }),
+      contentType : "application/json",
+      dataType : 'json'
+    }).done(function(result) {
+      dtd.resolve(result);
+    }).fail(function(ex) {
+      dtd.reject(ex);
+    });
+
     return dtd.promise();
   }
 };

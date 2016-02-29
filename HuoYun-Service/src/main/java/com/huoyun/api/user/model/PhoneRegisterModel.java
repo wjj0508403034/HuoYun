@@ -1,10 +1,6 @@
-package com.huoyun.controller.user.model;
+package com.huoyun.api.user.model;
 
-import org.springframework.validation.BindingResult;
-
-import com.huoyun.core.common.BaseForm;
-
-public class RegisterByPhoneForm extends BaseForm {
+public class PhoneRegisterModel {
 
 	private String phone;
 	private String code;
@@ -32,12 +28,6 @@ public class RegisterByPhoneForm extends BaseForm {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	@Override
-	public void onValid(BindingResult result) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

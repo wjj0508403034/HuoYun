@@ -11,7 +11,7 @@ public class UserInfo extends
 	private User user;
 
 	public UserInfo(User user) {
-		super(user.getEmail(), user.getPassword(), AuthorityUtils
+		super(user.getUsername(), user.getPassword(), AuthorityUtils
 				.createAuthorityList(user.getRole().getCode()));
 		this.user = user;
 	}

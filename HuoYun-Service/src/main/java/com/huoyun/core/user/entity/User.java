@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.commons.lang3.StringUtils;
 
 @Entity
 @Table
@@ -35,6 +38,15 @@ public class User {
 
 	@Column
 	private boolean lock;
+
+	@Transient
+	public String getUsername() {
+		if (StringUtils.isEmpty(this.getPhone())) {
+			return this.getEmail();
+		}
+		
+		return this.getPhone();
+	}
 
 	public long getId() {
 		return id;
