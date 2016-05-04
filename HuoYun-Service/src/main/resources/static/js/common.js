@@ -55,5 +55,26 @@ huoyun.services.userService = {
     });
 
     return dtd.promise();
+  },
+
+  registerByEmail : function(email, password, repeatPassword) {
+    var url = "/api/user/registerByEmail";
+    var dtd = $.Deferred();
+
+    $.ajax({
+      type : "POST",
+      url : url,
+      data : JSON.stringify({
+        email : email,
+        password : password,
+        repeatPassword : repeatPassword
+      }),
+      contentType : "application/json",
+      dataType : 'json'
+    }).done(function(result) {
+      dtd.resolve(result);
+    }).fail(function(ex) {
+      dtd.reject(ex);
+    });
   }
 };

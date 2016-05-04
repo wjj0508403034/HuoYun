@@ -1,16 +1,14 @@
 package com.huoyun.thirdparty.alibaba.dayu;
 
-import java.util.Random;
-
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
-import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.huoyun.core.common.web.ProxyProperties;
 import com.huoyun.core.locale.LocaleService;
+import com.huoyun.core.tools.CodeGeneratorUtils;
 import com.huoyun.exception.BusinessException;
 import com.taobao.api.ApiException;
 import com.taobao.api.TaobaoClient;
@@ -68,7 +66,7 @@ public class AlidayuServiceImpl implements AlidayuService {
 	public String sendRegisterSms(String phones) throws BusinessException {
 		logger.info("send register sms...");
 		RegisterTemplateParam params = new RegisterTemplateParam(
-				this.generatorCode(), Product_Name);
+				CodeGeneratorUtils.generator(), Product_Name);
 		try {
 			this.send(SMSTemplate.Register, Sign_Name, params, phones);
 		} catch (BusinessException e) {
@@ -112,13 +110,6 @@ public class AlidayuServiceImpl implements AlidayuService {
 			throw new BusinessException(ErrorCode.SMS_Internal_Error,
 					localeService);
 		}
-	}
-
-	private String generatorCode() {
-		Random random = new Random();
-		random.setSeed(LocalDateTime.now().getMillisOfSecond());
-		int num = random.nextInt(1000000);
-		return String.format("%06d", num);
 	}
 
 	private String paramsToString(Object params) throws BusinessException {

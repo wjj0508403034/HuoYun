@@ -29,5 +29,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/GitHub/HuoYun/HuoYun-Service/libs/Sdk4J.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

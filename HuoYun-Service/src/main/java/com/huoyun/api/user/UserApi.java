@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.huoyun.api.user.model.PhoneRegisterModel;
+import com.huoyun.api.user.model.EmailRegisterModel;
 import com.huoyun.api.user.model.SmsValidateCode;
 import com.huoyun.core.common.session.SessionUtils;
 import com.huoyun.core.common.validator.EmailValidator;
@@ -24,7 +25,6 @@ import com.huoyun.core.user.ErrorCode;
 import com.huoyun.core.user.UserService;
 import com.huoyun.core.user.dto.InviteRegisterForm;
 import com.huoyun.core.user.dto.Login;
-import com.huoyun.core.user.dto.RegisterUser;
 import com.huoyun.core.user.dto.ResetPassword;
 import com.huoyun.core.user.dto.ResetPasswordFormByEmail;
 import com.huoyun.exception.BusinessException;
@@ -50,13 +50,13 @@ public class UserApi {
 	private HttpSession httpSession;
 
 	/*
-	 * 用户注册
+	 * 用户通过邮件注册
 	 */
-	@RequestMapping(path = "register", method = RequestMethod.POST)
-	public @ResponseBody void register(@RequestBody RegisterUser registerUser)
+	@RequestMapping(path = "registerByEmail", method = RequestMethod.POST)
+	public @ResponseBody void registerByEmail(@RequestBody EmailRegisterModel model)
 			throws BusinessException {
-		registerUser.onValid(localeService);
-		this.userService.create(registerUser.parse(passwordEncoder));
+		this.userService.registerByEmail(model.getEmail(), model.getPassword(),
+				model.getRepeatPassword());
 	}
 
 	/*

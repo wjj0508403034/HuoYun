@@ -42,15 +42,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		httpSecurity.authorizeRequests()
 				.antMatchers("/login.html", "/register.html").permitAll();
-		httpSecurity.authorizeRequests()
-				.antMatchers("/register", "/registerByPhone").permitAll();
 
 		/************************************************************
 		 * API
 		 ************************************************************/
 		httpSecurity
 				.authorizeRequests()
-				.antMatchers("/api/user/login", "/api/user/register",
+				.antMatchers("/api/user/login", "/api/user/registerByEmail",
 						"/api/user/registerByPhone",
 						"/api/user/sendRegisterSmsCode",
 						"/api/user/checkEmailExist",

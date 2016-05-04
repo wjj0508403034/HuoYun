@@ -1,18 +1,13 @@
 package com.huoyun.controller.user;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.huoyun.controller.user.model.LoginForm;
 import com.huoyun.controller.user.model.RegisterForm;
-import com.huoyun.core.user.ErrorCode;
 import com.huoyun.core.user.UserService;
-import com.huoyun.exception.BusinessException;
 
 @Controller
 public class UserController {
@@ -43,7 +38,7 @@ public class UserController {
 		return "accounts/resetpassword";
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerByEmail(@Valid RegisterForm registerForm,
 			BindingResult result) {
 		registerForm.onValid(result);
@@ -64,5 +59,5 @@ public class UserController {
 		}
 
 		return "redirect:/login.html";
-	}
+	}*/
 }

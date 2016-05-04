@@ -7,6 +7,13 @@ var registerController = function() {
     agreement : true
   };
 
+  this.emailRegisterValidForm = {
+    email : false,
+    password : false,
+    repeatPassword : false,
+    agreement : true
+  };
+
   this.checkPhoneExist = function(phone) {
     $.when(huoyun.services.userService.checkPhoneExist(phone)).done(
         function(res) {
@@ -19,7 +26,7 @@ var registerController = function() {
             this.phoneRegisterValidForm.phone = true;
             this.enableSendSMSBtn();
           }
-          updateSubmitStateForPhoneRegisterForm();
+          updateFormState("phone");
         }.bind(this));
   }
 
@@ -46,6 +53,16 @@ var registerController = function() {
         }).fail(function(ex) {
           console.log(ex);
         });
+  },
+
+  this.registerByEmail = function(email, password, repeatPassword) {
+    $.when(
+        huoyun.services.userService.registerByEmail(email, password,
+            repeatPassword)).done(function() {
+      window.location.href = "/login.html";
+    }).fail(function(ex) {
+      console.log(ex);
+    });
   },
 
   this.enableSendSMSBtn = function() {
@@ -90,13 +107,23 @@ var registerController = function() {
     $(inputContainerClass + " .error-message").text("");
   };
 
-  this.updateSubmitStateForPhoneRegisterForm = function() {
-    if (phoneRegisterValidForm.phone && phoneRegisterValidForm.code
-        && phoneRegisterValidForm.password && phoneRegisterValidForm.agreement) {
-      $(".phone-register-submit-btn").removeClass("disabled");
+  this.updateFormState = function(media) {
+    if (media === "phone") {
+      if (phoneRegisterValidForm.phone && phoneRegisterValidForm.code
+          && phoneRegisterValidForm.password
+          && phoneRegisterValidForm.agreement) {
+        $(".phone-register-submit-btn").removeClass("disabled");
+      } else {
+        $(".phone-register-submit-btn").addClass("disabled");
+      }
     } else {
-      $(".phone-register-submit-btn").addClass("disabled");
+
     }
+
+  };
+
+  this.checkBeforeSave = function() {
+
   };
 
   return {
@@ -116,7 +143,7 @@ var registerController = function() {
         }
         disabledSendSMSBtn();
         phoneRegisterValidForm.phone = false;
-        updateSubmitStateForPhoneRegisterForm();
+        updateFormState("phone");
       }
     },
 
@@ -126,7 +153,7 @@ var registerController = function() {
       } else {
         phoneRegisterValidForm.code = false;
       }
-      updateSubmitStateForPhoneRegisterForm();
+      updateFormState("phone");
     },
 
     checkPasswordOnPhoneForm : function(password) {
@@ -135,7 +162,29 @@ var registerController = function() {
       } else {
         phoneRegisterValidForm.password = false;
       }
-      updateSubmitStateForPhoneRegisterForm();
+      updateFormState("phone");
+    },
+
+    checkPasswordOnEmailForm : function(password) {
+      if (!password) {
+        addErrorForInputContainer(".password-input-container", "密码不能为空。");
+        emailRegisterValidForm.password = false;
+      } else {
+        emailRegisterValidForm.password = true;
+      }
+
+      updateFormState("email");
+    },
+
+    checkRepeatPassword : function(password, repeatPassword) {
+      if (password !== repeatPassword) {
+        addErrorForInputContainer(".repeatPassword-input-container", "两次密码不一致。");
+        emailRegisterValidForm.repeatPassword = false;
+      } else {
+        clearErrorForInputContainer(".repeatPassword-input-container");
+        emailRegisterValidForm.repeatPassword = true;
+      }
+      updateFormState("email");
     },
 
     sendRegisterSmsCode : function(phone) {
@@ -149,7 +198,10 @@ var registerController = function() {
       var isChecked = $checkBox.hasClass("checked");
       if (media === 'phone') {
         phoneRegisterValidForm.agreement = isChecked;
-        updateSubmitStateForPhoneRegisterForm();
+        updateFormState("phone");
+      } else {
+        emailRegisterValidForm.agreement = isChecked;
+        updateFormState("email");
       }
     },
 
@@ -166,6 +218,10 @@ var registerController = function() {
 
     registerByPhone : function(phone, code, password) {
       registerByPhone(phone, code, password);
+    },
+
+    registerByEmail : function() {
+
     }
   }
 };

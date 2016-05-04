@@ -46,38 +46,34 @@
           onclick="register.registerByPhone($('#phone-input').val(),$('#code-input').val(),$('#phone-password-input').val())" />
       </div>
       <div class="tab-1 hidden">
-        <form class="register-form" action="#" th:action="@{/register}" th:object="${registerForm}" method="POST">
-          <ul class="form-error-message" th:if="${#fields.hasGlobalErrors()}">
-            <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
-          </ul>
-          <div class="input-container" th:classappend="${#fields.hasErrors('email')}? 'error' : ''">
-            <input name="email" th:field="*{email}" type="text" placeholder="请输入常用邮箱地址" onblur="register.checkEmail($(this).val())" />
-            <div class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-          </div>
+        <div class="input-container">
+          <input id="email-input" name="email" type="text" placeholder="请输入常用邮箱地址" onblur="register.checkEmail($(this).val())" />
+          <div class="error-message"></div>
+        </div>
 
-          <div class="input-container" th:classappend="${#fields.hasErrors('password')}? 'error' : ''">
-            <input name="password" th:field="*{password}" type="password" placeholder="请输入密码" />
-            <div class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        <div class="input-container password-input-container">
+          <input id="email-password-input" name="password" type="password" placeholder="请输入密码" />
+          <div class="error-message" onblur="register.checkPasswordOnEmailForm($(this).val())"></div>
+        </div>
+        <div class="input-container repeatPassword-input-container">
+          <input id="repassword-input" name="repeatPassword" type="password" onblur="register.checkRepeatPassword($('#email-password-input').val(), $(this).val())"
+            placeholder="请再次输入密码" />
+          <div class="error-message"></div>
+        </div>
+        <div class="input-container clearfix">
+          <div class="check-box-control checked">
+            <i class="fa fa-check-square"></i>我已阅读并同意
+            <a class="color-green" href="http://www.lagou.com/privacy.html" target="_blank">《用户协议》</a>
           </div>
-          <div class="input-container" th:classappend="${#fields.hasErrors('repeatPassword')}? 'error' : ''">
-            <input name="repeatPassword" th:field="*{repeatPassword}" type="password" placeholder="请再次输入密码" />
-            <div class="error-message" th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}"></div>
-          </div>
-          <div class="input-container clearfix">
-            <div class="check-box-control checked">
-              <i class="fa fa-check-square"></i>我已阅读并同意
-              <a class="color-green" href="http://www.lagou.com/privacy.html" target="_blank">《用户协议》</a>
-            </div>
-          </div>
-          <input class="register-btn btn btn-green btn-lg" type="submit" value="注 册" />
-        </form>
+        </div>
+        <input class="register-btn btn btn-green btn-lg" type="submit" value="注 册" onclick="register.registerByEmail()" />
       </div>
     </div>
     <div class="middle-part f-left">
       <img th:src="@{/imgs/divider-login.jpg}" />
     </div>
     <div class="right-part f-left">
-      <h5>已有拉勾帐号:</h5>
+      <h5>已有帐号:</h5>
       <a th:href="@{/login.html}" class="login-now color-green">
         <span>直接登录</span> <i class="fa fa-arrow-right"></i>
       </a>

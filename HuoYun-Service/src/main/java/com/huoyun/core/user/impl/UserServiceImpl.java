@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.huoyun.api.user.model.SmsValidateCode;
 import com.huoyun.core.common.BoService;
 import com.huoyun.core.common.session.SessionUtils;
+import com.huoyun.core.common.validator.EmailValidator;
 import com.huoyun.core.common.validator.PhoneValidator;
 import com.huoyun.core.employee.EmployeeService;
 import com.huoyun.core.extension.endpoint.UserEventListenerForEmployee;
@@ -421,7 +422,41 @@ public class UserServiceImpl extends BoService implements UserService {
 	}
 
 	@Override
-	public void registerByEmail(String email, String password) {
+	public void registerByEmail(String email, String password,
+			String repeatPassword) throws LocalableBusinessException {
+		// 检查邮箱是否为空
+		if (StringUtils.isEmpty(email)) {
+			throw new LocalableBusinessException(
+					ErrorCode.Register_Field_Empty, localeService, "email");
+		}
+
+		// 邮件格式检查
+		EmailValidator emailValidtor = new EmailValidator();
+		if (!emailValidtor.validator(email)) {
+			throw new LocalableBusinessException(
+					ErrorCode.Invalid_Email_Format, localeService, "email");
+		}
+
+		// 检查密码是否为空
+		if (StringUtils.isEmpty(password)) {
+			throw new LocalableBusinessException(
+					ErrorCode.Register_Field_Empty, localeService, "password");
+		}
+
+		// 密码验证检查
+		if (!StringUtils.equals(password, repeatPassword)) {
+			throw new LocalableBusinessException(
+					ErrorCode.Register_Password_NotMatch, localeService,
+					"repeatPassword");
+		}
+
+		// 邮箱是否被注册
+		if (this.userRepository.findByEmail(email) != null) {
+			throw new LocalableBusinessException(
+					ErrorCode.Register_Email_Exist, localeService, "email");
+		}
+
+		// 创建用户
 		User user = new User();
 		user.setEmail(email);
 		user.setPassword(passwordEncoder.encode(password));
@@ -432,17 +467,36 @@ public class UserServiceImpl extends BoService implements UserService {
 	@Override
 	public void registerByPhone(String phone, String password, String code)
 			throws BusinessException {
+
+		// 检查手机是否为空
+		if (StringUtils.isEmpty(phone)) {
+			throw new LocalableBusinessException(
+					ErrorCode.Register_Field_Empty, localeService, "phone");
+		}
+
+		// 检查密码是否为空
+		if (StringUtils.isEmpty(password)) {
+			throw new LocalableBusinessException(
+					ErrorCode.Register_Field_Empty, localeService, "password");
+		}
+
+		// 检查验证码是否为空
+		if (StringUtils.isEmpty(code)) {
+			throw new LocalableBusinessException(
+					ErrorCode.Register_Field_Empty, localeService, "code");
+		}
+
 		// 手机格式检查
 		PhoneValidator validator = new PhoneValidator();
 		if (!validator.validator(phone)) {
-			throw new BusinessException(ErrorCode.Invalid_Phone_Format,
-					localeService);
+			throw new LocalableBusinessException(
+					ErrorCode.Invalid_Phone_Format, localeService, "phone");
 		}
 
 		// 手机是否被注册检查
 		if (this.findByPhone(phone) != null) {
-			throw new BusinessException(ErrorCode.Register_Phone_Exist,
-					localeService);
+			throw new LocalableBusinessException(
+					ErrorCode.Register_Phone_Exist, localeService, "phone");
 		}
 
 		// 注册验证码检查是否有效
@@ -451,8 +505,8 @@ public class UserServiceImpl extends BoService implements UserService {
 		if (smsValidateCode == null
 				|| smsValidateCode.getExpireDate()
 						.isBefore(LocalDateTime.now())) {
-			throw new BusinessException(ErrorCode.Validator_Code_Expired,
-					localeService);
+			throw new LocalableBusinessException(
+					ErrorCode.Validator_Code_Expired, localeService, "code");
 		}
 
 		// 创建用户
